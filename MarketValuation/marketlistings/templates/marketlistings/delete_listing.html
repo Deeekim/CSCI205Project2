@@ -1,0 +1,36 @@
+{% extends "marketlistings/base_template.html" %}
+
+{% block pagetitle %}Delete Listing{% endblock %}
+
+{% block maincontent %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title text-danger">Delete Listing</h2>
+            <p class="card-text">Are you sure you want to delete this listing?</p>
+            
+            <!-- Listing Details -->
+            <div class="border p-3 mb-3 bg-light rounded">
+                <h5 class="mb-3">Listing Details</h5>
+                <p><strong>Description:</strong> {{ listing.description }}</p>
+                <p><strong>Category:</strong> {{ listing.get_category_display }}</p>
+                <p><strong>Address:</strong> {{ listing.address }}</p>
+                <p><strong>Land Size:</strong> {{ listing.land_size|default:"N/A" }} m²</p>
+                <p><strong>Building Size:</strong> {{ listing.building_size|default:"N/A" }} m²</p>
+                <p><strong>Bedrooms:</strong> {{ listing.bedrooms|default:"N/A" }}</p>
+                <p><strong>Bathrooms:</strong> {{ listing.bathrooms|default:"N/A" }}</p>
+                <p><strong>Price:</strong> ₱{{ listing.price|floatformat:2|default:"N/A" }}</p>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="{% url 'marketlistings:view-all' %}" class="btn btn-secondary">Cancel</a>
+                <form method="post" class="d-inline-block">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
